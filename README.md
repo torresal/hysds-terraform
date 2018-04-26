@@ -15,7 +15,7 @@ HySDS cluster provisioning using Terraform
    ```
    cp variables.tf.tmpl variables.tf
    ```
-1. Updated the values starting with two underscores, e.g. \__region__, for your provider account and settings.
+1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings.
 1. Validate your configuration:
    ```
    terraform validate --var shared_credentials_file=~/.aws/credentials \
