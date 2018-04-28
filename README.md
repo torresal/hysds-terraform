@@ -16,23 +16,23 @@ HySDS cluster provisioning using Terraform
    cp variables.tf.tmpl variables.tf
    ```
 1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings.
+1. Determine the `project`, `venue` and `counter` for your HySDS cluster. They will be used to uniquely name and identify your cluster's resources.
+   - `project` e.g. swot, smap, aria, grfn, eos
+   - `venue` e.g. ops, dev, test, gerald
+   - `counter` e.g. 1, 2, 3
 1. Validate your configuration:
    ```
-   terraform validate --var shared_credentials_file=~/.aws/credentials \
-     --var profile=default --var venue=ops
+   terraform validate --var project=aria --var venue=ops --var counter=1
    ```
 1. Build your HySDS clustser:
    ```
-   terraform apply --var shared_credentials_file=~/.aws/credentials \
-     --var profile=default --var venue=ops
+   terraform apply --var project=aria --var venue=ops --var counter=1
    ```
 1. Show status of your HySDS cluster:
    ```
-   terraform show --var shared_credentials_file=~/.aws/credentials \
-     --var profile=default --var venue=ops
+   terraform show --var project=aria --var venue=ops --var counter=1
    ```
 1. Destroy your HySDS cluster once it's no longer needed:
    ```
-   terraform destroy --var shared_credentials_file=~/.aws/credentials \
-     --var profile=default --var venue=ops
+   terraform destroy --var project=aria --var venue=ops --var counter=1
    ```

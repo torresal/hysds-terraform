@@ -15,7 +15,7 @@ resource "aws_instance" "mozart" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.mozart["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.mozart["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
@@ -90,7 +90,7 @@ resource "aws_instance" "metrics" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.metrics["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.metrics["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
@@ -150,7 +150,7 @@ resource "aws_instance" "grq" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.grq["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.grq["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
@@ -210,7 +210,7 @@ resource "aws_instance" "factotum" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.factotum["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.factotum["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
@@ -272,7 +272,7 @@ resource "aws_instance" "ci" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.ci["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.ci["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
@@ -329,7 +329,7 @@ resource "aws_instance" "autoscale" {
   key_name               = "${var.key_name}"
   availability_zone      = "${var.az}"
   tags                   = {
-                             Name = "${var.venue}-${var.autoscale["name"]}"
+                             Name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.autoscale["name"]}"
                            }
   subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = "${var.vpc_security_group_ids}"
