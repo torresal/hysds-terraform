@@ -1,7 +1,11 @@
 # globals
-variable "shared_credentials_file" {}
-variable "profile" {}
 variable "venue" {}
+variable "shared_credentials_file" {
+  default = "~/.aws/credentials"
+}
+variable "profile" {
+  default = "default"
+}
 
 
 variable "key_name" {

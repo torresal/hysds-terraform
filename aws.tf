@@ -71,8 +71,12 @@ resource "aws_instance" "mozart" {
   }
 }
 
-output "mozart_ip" {
+output "mozart_pvt_ip" {
   value = "${aws_instance.mozart.private_ip}"
+}
+
+output "mozart_pub_ip" {
+  value = "${aws_instance.mozart.public_ip}"
 }
 
 
@@ -127,8 +131,12 @@ resource "aws_instance" "metrics" {
   }
 }
 
-output "metrics_ip" {
+output "metrics_pvt_ip" {
   value = "${aws_instance.metrics.private_ip}"
+}
+
+output "metrics_pub_ip" {
+  value = "${aws_instance.metrics.public_ip}"
 }
 
 
@@ -183,8 +191,12 @@ resource "aws_instance" "grq" {
   }
 }
 
-output "grq_ip" {
+output "grq_pvt_ip" {
   value = "${aws_instance.grq.private_ip}"
+}
+
+output "grq_pub_ip" {
+  value = "${aws_instance.grq.public_ip}"
 }
 
 
@@ -241,8 +253,12 @@ resource "aws_instance" "factotum" {
   }
 }
 
-output "factotum_ip" {
+output "factotum_pvt_ip" {
   value = "${aws_instance.factotum.private_ip}"
+}
+
+output "factotum_pub_ip" {
+  value = "${aws_instance.factotum.public_ip}"
 }
 
 
@@ -294,8 +310,12 @@ resource "aws_instance" "ci" {
   }
 }
 
-output "ci_ip" {
+output "ci_pvt_ip" {
   value = "${aws_instance.ci.private_ip}"
+}
+
+output "ci_pub_ip" {
+  value = "${aws_instance.ci.public_ip}"
 }
 
 
@@ -347,6 +367,10 @@ resource "aws_instance" "autoscale" {
   }
 }
 
-output "autoscale_ip" {
+output "autoscale_pvt_ip" {
   value = "${aws_instance.autoscale.private_ip}"
+}
+
+output "autoscale_pub_ip" {
+  value = "${aws_instance.autoscale.public_ip}"
 }
