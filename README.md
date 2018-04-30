@@ -11,9 +11,9 @@ HySDS cluster provisioning using Terraform
    git clone https://github.com/hysds/hysds-terraform.git
    cd hysds-terraform
    ```
-1. Copy the variables.tf.templ to variables.tf:
+1. Copy the variables.tf.tmpl to variables.tf:
    ```
-   cp variables.tf.templ variables.tf
+   cp variables.tf.tmpl variables.tf
    ```
    1. Initialize so plugins are installed:
    ```
