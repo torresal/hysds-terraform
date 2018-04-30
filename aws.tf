@@ -181,12 +181,10 @@ resource "aws_instance" "grq" {
       "sudo systemctl stop elasticsearch",
       "sudo systemctl stop redis",
       "sudo mkdir -p ${var.grq["data"]}/var/lib",
-      "sudo mv /var/lib/elasticsearch ${var.grq["data"]}/var/lib/",
-      "sudo ln -sf ${var.grq["data"]}/var/lib/elasticsearch /var/lib/elasticsearch",
       "sudo mv /var/lib/redis ${var.grq["data"]}/var/lib/",
       "sudo ln -sf ${var.grq["data"]}/var/lib/redis /var/lib/redis",
-      "sudo systemctl start elasticsearch",
-      "sudo systemctl start redis"
+      "sudo systemctl start redis",
+      "(sudo mv /var/lib/elasticsearch ${var.grq["data"]}/var/lib/ && sudo ln -sf ${var.grq["data"]}/var/lib/elasticsearch /var/lib/elasticsearch && sudo systemctl start elasticsearch) &"
     ]
   }
 }
