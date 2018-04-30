@@ -9,15 +9,15 @@ HySDS cluster provisioning using Terraform
 1. Clone the repo
    ```
    git clone https://github.com/hysds/hysds-terraform.git
-   ```
-1. First initialize so plugins are installed:
-   ```
    cd hysds-terraform
-   terraform init
    ```
 1. Copy the variables.tf.templ to variables.tf:
    ```
    cp variables.tf.templ variables.tf
+   ```
+   1. Initialize so plugins are installed:
+   ```
+   terraform init
    ```
 1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings. Edit the variables.tf file with custom variables for this installation venue. Many of these values can be acquired from the aws console.
    ```
