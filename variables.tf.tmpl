@@ -2,32 +2,35 @@
 variable "project" {}
 variable "venue" {}
 variable "counter" {}
+
 variable "shared_credentials_file" {
   default = "~/.aws/credentials"
 }
+
 variable "profile" {
   default = "default"
 }
 
-
 variable "key_name" {
   default = "__key_name__"
-
 }
+
 variable "private_key_file" {
   default = "__private_key_file__"
-
 }
+
 variable "region" {
   default = "__region__"
 }
+
 variable "az" {
   default = "__az__"
-
 }
+
 variable "subnet_id" {
   default = "__subnet_id__"
 }
+
 variable "vpc_security_group_ids" {
   type = "list"
   default = [
