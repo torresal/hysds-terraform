@@ -126,7 +126,7 @@ resource "aws_instance" "metrics" {
       "sudo mv /var/lib/redis ${var.metrics["data"]}/var/lib/",
       "sudo ln -sf ${var.metrics["data"]}/var/lib/redis /var/lib/redis",
       "sudo systemctl start elasticsearch",
-      "sudo systemctl start redis",
+      "sudo systemctl start redis"
     ]
   }
 }
@@ -186,7 +186,7 @@ resource "aws_instance" "grq" {
       "sudo mv /var/lib/redis ${var.grq["data"]}/var/lib/",
       "sudo ln -sf ${var.grq["data"]}/var/lib/redis /var/lib/redis",
       "sudo systemctl start elasticsearch",
-      "sudo systemctl start redis",
+      "sudo systemctl start redis"
     ]
   }
 }
