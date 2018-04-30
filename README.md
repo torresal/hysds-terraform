@@ -15,7 +15,7 @@ HySDS cluster provisioning using Terraform
    cd hysds-terraform
    terraform init
    ```
-1. Copy the variables.tf.tmpl to variables.tf:
+1. Copy the variables.tf.templ to variables.tf:
    ```
    cp variables.tf.templ variables.tf
    ```
