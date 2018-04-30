@@ -17,7 +17,7 @@ HySDS cluster provisioning using Terraform
    ```
 1. Copy the variables.tf.tmpl to variables.tf:
    ```
-   cp variables.tf.tmpl variables.tf
+   cp variables.tf.templ variables.tf
    ```
 1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings.
 1. Determine the `project`, `venue` and `counter` for your HySDS cluster. They will be used to uniquely name and identify your cluster's resources.
