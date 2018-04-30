@@ -19,7 +19,7 @@ HySDS cluster provisioning using Terraform
    ```
    cp variables.tf.templ variables.tf
    ```
-1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings. Edit the variables.tf file with custom variables for this installation venue.
+1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings. Edit the variables.tf file with custom variables for this installation venue. Many of these values can be acquired from the aws console.
    ```
    vi variables.tf
    ```
