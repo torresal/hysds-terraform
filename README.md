@@ -6,6 +6,10 @@ HySDS cluster provisioning using Terraform
 1. If you are using AWS, make sure you have your credentials setup up. To set them up, install the AWS CLI from https://aws.amazon.com/cli/ and run `aws configure`.
 
 ## Usage
+1. Clone the repo
+   ```
+   git clone https://github.com/hysds/hysds-terraform.git
+   ```
 1. First initialize so plugins are installed:
    ```
    cd hysds-terraform
