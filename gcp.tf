@@ -1,28 +1,178 @@
 # Configure the Google Cloud provider
-  provider "google" {
-  region      = "${var.region}"
-  project     = "${var.project}"
-  credentials = "${file("${var.credentials_file_path}")}"
+
+provider "google" {
+region      = "${var.region}"
+project     = "${var.project}"
+credentials = "${file("${var.credentials_file_path}")}"
 }
+
  
-# Create a new instance
-  resource "google_compute_instance" "default" {
-  count = "${var.counter}"
+# Create new instances
 
-  name = "apt-test-instance"
-  machine_type = "f1-micro"
-  zone = "${var.zone}"
+######################
+#        Mozart
+######################
 
-  boot_disk {
-    initialize_params {
-      image = "${var.image}"
-    }
+resource "google_compute_instance" "mozart" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.mozart["name"]}"
+machine_type = "${var.mozart["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.mozart["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.mozart["image"]}"
   }
+ }
 
-  network_interface {
-    network = "default"
+network_interface {
+  network = "default"
 
-    access_config {}
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+}
+
+######################
+#        Metrics
+######################
+
+resource "google_compute_instance" "metrics" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.metrics["name"]}"
+machine_type = "${var.metrics["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.metrics["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.metrics["image"]}"
   }
+ }
+
+network_interface {
+  network = "default"
+
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+}
+
+######################
+#        GRQ
+######################
+
+resource "google_compute_instance" "grq" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.grq["name"]}"
+machine_type = "${var.grq["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.grq["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.grq["image"]}"
+  }
+ }
+
+network_interface {
+  network = "default"
+
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+}
+
+######################
+#      Factotum
+######################
+
+resource "google_compute_instance" "factotum" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.factotum["name"]}"
+machine_type = "${var.factotum["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.factotum["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.factotum["image"]}"
+  }
+ }
+
+network_interface {
+  network = "default"
+
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+}
+
+######################
+#        CI
+######################
+
+resource "google_compute_instance" "ci" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.ci["name"]}"
+machine_type = "${var.ci["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.ci["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.ci["image"]}"
+  }
+ }
+
+network_interface {
+  network = "default"
+
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+}
+
+######################
+#      Autoscale
+######################
+
+resource "google_compute_instance" "autoscale" {
+name = "${var.project}-${var.venue}-${var.counter}-pcm-${var.autoscale["name"]}"
+machine_type = "${var.autoscale["machine_type"]}"
+zone = "${var.zone}"
+tags = ["${var.project}-${var.venue}-${var.counter}-pcm-${var.autoscale["name"]}"]
+
+boot_disk {
+  initialize_params {
+    image = "${var.autoscale["image"]}"
+  }
+ }
+
+network_interface {
+  network = "default"
+
+  access_config {}
+ }
+
+service_account {
+  scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
 
 }
