@@ -27,7 +27,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
@@ -35,7 +34,17 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "sudo su -",
+    "yum install -y git",
+    "yum install -y puppet",
+    "yum install -y puppet-firewalld",
+    "bash < <(curl -skL https://github.com/hysds/puppet-mozart/raw/master/install.sh)"	
+  ]
+ }
 }
+
 
 ######################
 #        Metrics
@@ -55,7 +64,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
@@ -63,7 +71,17 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "sudo su -",
+    "yum install -y git",
+    "yum install -y puppet",
+    "yum install -y puppet-firewalld",
+    "bash < <(curl -skL https://github.com/hysds/puppet-metrics/raw/master/install.sh)"
+  ]
+ }
 }
+
 
 ######################
 #        GRQ
@@ -83,7 +101,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
@@ -91,7 +108,17 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "sudo su -",
+    "yum install -y git",
+    "yum install -y puppet",
+    "yum install -y puppet-firewalld",
+    "bash < <(curl -skL https://github.com/hysds/puppet-grq/raw/master/install.sh)"
+  ]
+ }
 }
+
 
 ######################
 #      Factotum
@@ -111,7 +138,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
@@ -119,7 +145,17 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "sudo su -",
+    "yum install -y git",
+    "yum install -y puppet",
+    "yum install -y puppet-firewalld",
+    "bash < <(curl -skL https://github.com/hysds/puppet-factotum/raw/master/install.sh)"
+  ]
+ }
 }
+
 
 ######################
 #        CI
@@ -139,7 +175,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
@@ -147,7 +182,17 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "sudo su -",
+    "yum install -y git",
+    "yum install -y puppet",
+    "yum install -y puppet-firewalld",
+    "bash < <(curl -skL https://github.com/hysds/puppet-cont_int/raw/master/install.sh)"
+  ]
+ }
 }
+
 
 ######################
 #      Autoscale
@@ -167,7 +212,6 @@ boot_disk {
 
 network_interface {
   network = "default"
-
   access_config {}
  }
 
