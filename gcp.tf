@@ -34,6 +34,10 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
+ }
+
 provisioner "remote-exec" {
   inline = [
     "sudo su -",
@@ -69,6 +73,10 @@ network_interface {
 
 service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
  }
 
 provisioner "remote-exec" {
@@ -108,6 +116,10 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
+ }
+
 provisioner "remote-exec" {
   inline = [
     "sudo su -",
@@ -143,6 +155,10 @@ network_interface {
 
 service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
  }
 
 provisioner "remote-exec" {
@@ -182,6 +198,10 @@ service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
  }
 
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
+ }
+
 provisioner "remote-exec" {
   inline = [
     "sudo su -",
@@ -217,6 +237,10 @@ network_interface {
 
 service_account {
   scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+ }
+
+metadata {
+  ssh-keys = "root:${file("${var.public_key_path}")}"
  }
 
 }
