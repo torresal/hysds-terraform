@@ -35,21 +35,41 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
  }
 
+provisioner "file" {
+  source          = "${var.credentials_file_path}"
+  destination     = "/tmp/gcp-credentials.json"
+
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+ }
+
+
 provisioner "remote-exec" {
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+
   inline = [
-    "sudo su -",
-    "yum install -y git",
-    "yum install -y puppet",
-    "yum install -y puppet-firewalld",
-    "bash < <(curl -skL https://github.com/hysds/puppet-mozart/raw/master/install.sh)"	
+    "cd ~",
+    "sudo mkdir gcloud/",
+    "sudo mv /tmp/gcp-credentials.json gcloud/"
   ]
  }
 }
-
-
 ######################
 #        Metrics
 ######################
@@ -76,20 +96,40 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
+ }
+
+provisioner "file" {
+  source          = "${var.credentials_file_path}"
+  destination     = "/tmp/gcp-credentials.json"
+
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
  }
 
 provisioner "remote-exec" {
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+
   inline = [
-    "sudo su -",
-    "yum install -y git",
-    "yum install -y puppet",
-    "yum install -y puppet-firewalld",
-    "bash < <(curl -skL https://github.com/hysds/puppet-metrics/raw/master/install.sh)"
+    "cd ~",
+    "sudo mkdir gcloud/",
+    "sudo mv /tmp/gcp-credentials.json gcloud/"
   ]
  }
 }
-
 
 ######################
 #        GRQ
@@ -117,20 +157,40 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
+ }
+
+provisioner "file" {
+  source          = "${var.credentials_file_path}"
+  destination     = "/tmp/gcp-credentials.json"
+
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
  }
 
 provisioner "remote-exec" {
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+
   inline = [
-    "sudo su -",
-    "yum install -y git",
-    "yum install -y puppet",
-    "yum install -y puppet-firewalld",
-    "bash < <(curl -skL https://github.com/hysds/puppet-grq/raw/master/install.sh)"
+    "cd ~",
+    "sudo mkdir gcloud/",
+    "sudo mv /tmp/gcp-credentials.json gcloud/"
   ]
  }
 }
-
 
 ######################
 #      Factotum
@@ -158,20 +218,40 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
+ }
+
+provisioner "file" {
+  source          = "${var.credentials_file_path}"
+  destination     = "/tmp/gcp-credentials.json"
+
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
  }
 
 provisioner "remote-exec" {
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+
   inline = [
-    "sudo su -",
-    "yum install -y git",
-    "yum install -y puppet",
-    "yum install -y puppet-firewalld",
-    "bash < <(curl -skL https://github.com/hysds/puppet-factotum/raw/master/install.sh)"
+    "cd ~",
+    "sudo mkdir gcloud/",
+    "sudo mv /tmp/gcp-credentials.json gcloud/"
   ]
  }
 }
-
 
 ######################
 #        CI
@@ -199,20 +279,40 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
+ }
+
+provisioner "file" {
+  source          = "${var.credentials_file_path}"
+  destination     = "/tmp/gcp-credentials.json"
+
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
  }
 
 provisioner "remote-exec" {
+  connection {
+      type        = "ssh"
+      user        = "${var.user}"
+      password    = "${var.password}"
+      private_key = "${file("${var.private_key_path}")}"
+      agent       = false
+      timeout     = "2m"
+    }
+
   inline = [
-    "sudo su -",
-    "yum install -y git",
-    "yum install -y puppet",
-    "yum install -y puppet-firewalld",
-    "bash < <(curl -skL https://github.com/hysds/puppet-cont_int/raw/master/install.sh)"
+    "cd ~",
+    "sudo mkdir gcloud/",
+    "sudo mv /tmp/gcp-credentials.json gcloud/"
   ]
  }
 }
-
 
 ######################
 #      Autoscale
@@ -240,7 +340,7 @@ service_account {
  }
 
 metadata {
-  ssh-keys = "root:${file("${var.public_key_path}")}"
+  ssh-keys = "${var.user}:${file("${var.public_key_path}")}"
  }
 
 }
