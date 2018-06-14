@@ -5,7 +5,6 @@ region      = "${var.region}"
 project     = "${var.project}"
 credentials = "${file("${var.credentials_file_path}")}"
 }
-
  
 # Create new instances
 
@@ -52,7 +51,6 @@ provisioner "file" {
     }
  }
 
-
 provisioner "remote-exec" {
   connection {
       type        = "ssh"
@@ -70,6 +68,7 @@ provisioner "remote-exec" {
   ]
  }
 }
+
 ######################
 #        Metrics
 ######################
