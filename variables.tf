@@ -49,6 +49,12 @@ variable "mozart" {
     name = "mozart"
     image = "hysds-centos7-mozart"
     machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 50
+    data2 = "/data2"
+    data2_dev = "/dev/xvdc"
+    data2_dev_size = 50    
   }
 }
 
@@ -59,6 +65,9 @@ variable "metrics" {
     name = "metircs"
     image = "hysds-centos7-metrics"
     machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 100
   } 
 }
 
@@ -69,6 +78,9 @@ variable "grq" {
     name = "grq"
     image = "hysds-centos7-grq"
     machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 100
   } 
 }
 
@@ -79,6 +91,12 @@ variable "factotum" {
     name = "factotum"
     image = "hysds-centos7-factotum"
     machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 300
   } 
 }
 
@@ -89,6 +107,12 @@ variable "ci" {
     name = "ci"
     image = "hysds-centos7-ci"
     machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 100
   } 
 }
 
@@ -99,5 +123,11 @@ variable "autoscale" {
     name = "autoscale"
     image = "hysds-centos7-autoscale"
     machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 300
   } 
 }
