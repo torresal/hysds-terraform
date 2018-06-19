@@ -13,7 +13,7 @@ HySDS cluster provisioning using Terraform
    ```
 1. Copy the variables.tf.tmpl to variables.tf:
    ```
-   cp variables.tf.tmpl variables.tf
+   cp gcp-variables.tf.tmpl variables.tf
    ```
    1. Initialize so plugins are installed:
    ```
