@@ -1,11 +1,43 @@
 
 # globals
-variable "project" {}
-variable "venue" {}
-variable "counter" {}
+variable "project" {
+  description = "Name of GCP account project"
+  default = "__project__"
+}
 
-variable "shared_credentials_file" {
-  default = "~/.config/gcloud/gcp-credentials.json"
+variable "venue" {
+  description = "e.g. ops, dev, test, gerald"
+  default = "test"
+}
+
+variable "counter" {
+  description = "e.g. 1, 2, 3"
+  default = 1
+}
+
+variable "credentials_file_path" {
+  description = "Path to service account credentials (.json)"
+  default = "~/.config/gcloud/configurations/config_default"
+}
+
+variable "user" {
+  description = "Username for ssh login"
+  default = "ops"
+}
+
+variable "password" {
+  description = "Passphrase for ssh key pair"
+  default = ""
+}
+
+variable "public_key_path" {
+  description = "Path to file containing public key"
+  default     = "__path_to_public_key__"
+}
+
+variable "private_key_path" {
+  description = "Path to file containing private key"
+  default     = "__path_to_private_key__"
 }
 
 variable "region" {
@@ -16,16 +48,19 @@ variable "zone" {
   default = "__zone__"
 }
 
-variable "image" {
-  default = "__image__"
-
 # mozart vars
 variable "mozart" {
   type = "map"
   default = {
     name = "mozart"
     image = "__mozart_image_id__"
-    machine_type = "n1-standard-8"
+    machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 50
+    data2 = "/data2"
+    data2_dev = "/dev/xvdc"
+    data2_dev_size = 50    
   }
 }
 
@@ -35,7 +70,10 @@ variable "metrics" {
   default = {
     name = "metircs"
     image = "__metrics_image_id__"
-    machine_type = "n1-standard-8"
+    machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 100
   } 
 }
 
@@ -45,7 +83,10 @@ variable "grq" {
   default = {
     name = "grq"
     image = "__grq_image_id__"
-    machine_type = "n1-standard-8"
+    machine_type = "n1-standard-1"
+    data = "/data"
+    data_dev = "/dev/xvdb"
+    data_dev_size = 100
   } 
 }
 
@@ -55,7 +96,13 @@ variable "factotum" {
   default = {
     name = "factotum"
     image = "__factotum_image_id__"
-    machine_type = "n1-standard-4"
+    machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 300
   } 
 }
 
@@ -65,7 +112,13 @@ variable "ci" {
   default = {
     name = "ci"
     image = "__ci_image_id__"
-    machine_type = "n1-standard-4"
+    machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 100
   } 
 }
 
@@ -75,6 +128,12 @@ variable "autoscale" {
   default = {
     name = "autoscale"
     image = "__autoscale_image_id__"
-    machine_type = "n1-standard-4"
+    machine_type = "n1-standard-1"
+    docker_storage_dev = "/dev/xvdb"
+    docker_storage_dev_size = 50
+    data = "/data"
+    data_dev = "/dev/xvdc"
+    data_dev_mount = "/dev/nvme2n1"
+    data_dev_size = 300
   } 
 }
