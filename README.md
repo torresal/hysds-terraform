@@ -23,10 +23,12 @@ HySDS cluster provisioning using Terraform
    ```
    vi variables.tf
    ```
-1. Determine the `project`, `venue` and `counter` for your HySDS cluster. They will be used to uniquely name and identify your cluster's resources. The `project` will be the project ID of your GCP account project you would like to use. You can list the avaliable projects using `gcloud projects list`.
+1. Determine the `project`, `venue` and `counter` for your HySDS cluster. They will be used to uniquely name and identify your cluster's resources. The `project` is the project ID of your GCP account project you would like to use. You can list the avaliable projects using the command `gcloud projects list`.
+
    - `project` e.g. gcp-project-12345
    - `venue` e.g. ops, dev, test, gerald
    - `counter` e.g. 1, 2, 3
+   
 1. Validate your configuration:
    ```
    terraform validate --var project=gcp-project-12345 --var venue=ops --var counter=1
