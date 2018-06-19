@@ -3,7 +3,7 @@ HySDS cluster provisioning using Terraform
 
 ## Prerequisites
 1. Install Terraform from https://www.terraform.io/. You can run `terraform` from any machine or your laptop.
-1. If you are using AWS, make sure you have your credentials setup up. To set them up, install the AWS CLI from https://aws.amazon.com/cli/ and run `aws configure`.
+2. If you are using Google Cloud Platform (GCP), make sure you have your credentials setup up. To set them up, install the [Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts) for your system and run `gcloud init`.
 
 ## Usage
 1. Clone the repo
