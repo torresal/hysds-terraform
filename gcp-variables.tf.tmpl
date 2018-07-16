@@ -48,6 +48,16 @@ variable "zone" {
   default = "__zone__"
 }
 
+variable "service_account" {
+  description = "GCP service account email"
+  default     = "__service_account__"
+}
+
+variable "network" {
+  description = "Name of VPC network, if not leave 'default'"
+  default     = "default"
+}
+
 # mozart vars
 variable "mozart" {
   type = "map"
