@@ -3,7 +3,7 @@
 provider "google" {
 region      = "${var.region}"
 project     = "${var.project}"
-credentials = "${file("${var.credentials_file_path}")}"
+# credentials = "${file("${var.credentials_file_path}")}"
 }
  
 # Create new instances
@@ -26,12 +26,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -48,9 +48,15 @@ connection {
   timeout     = "2m"
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
+ }
+
 provisioner "file" {
   source          = "${var.credentials_file_path}"
-  destination     = "/tmp/gcp-credentials.json"
+  destination     = "/tmp/config_default"
  }
 
 provisioner "file" {
@@ -62,7 +68,7 @@ provisioner "remote-exec" {
   inline = [
     "cd ~",
     "sudo mkdir gcloud/",
-    "sudo mv /tmp/gcp-credentials.json gcloud/",
+    "sudo mv /tmp/config_default.json gcloud/",
     "sudo mv /tmp/OPS ~/.ssh/",
     "sudo chmod 400 ~/.ssh/OPS"
   ]
@@ -114,12 +120,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -136,16 +142,22 @@ connection {
   timeout     = "2m"
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
+ }
+
 provisioner "file" {
   source          = "${var.credentials_file_path}"
-  destination     = "/tmp/gcp-credentials.json"
+  destination     = "/tmp/config_default"
  }
 
 provisioner "remote-exec" {
   inline = [
     "cd ~",
     "sudo mkdir gcloud/",
-    "sudo mv /tmp/gcp-credentials.json gcloud/"
+    "sudo mv /tmp/config_default gcloud/"
   ]
  }
 
@@ -186,12 +198,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -208,16 +220,22 @@ connection {
   timeout     = "2m"
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
+ }
+
 provisioner "file" {
   source          = "${var.credentials_file_path}"
-  destination     = "/tmp/gcp-credentials.json"
+  destination     = "/tmp/config_default"
  }
 
 provisioner "remote-exec" {
   inline = [
     "cd ~",
     "sudo mkdir gcloud/",
-    "sudo mv /tmp/gcp-credentials.json gcloud/"
+    "sudo mv /tmp/config_default gcloud/"
   ]
  }
 
@@ -256,12 +274,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -278,16 +296,22 @@ connection {
   timeout     = "2m"
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
+ }
+
 provisioner "file" {
   source          = "${var.credentials_file_path}"
-  destination     = "/tmp/gcp-credentials.json"
+  destination     = "/tmp/config_default"
  }
 
 provisioner "remote-exec" {
   inline = [
     "cd ~",
     "sudo mkdir gcloud/",
-    "sudo mv /tmp/gcp-credentials.json gcloud/"
+    "sudo mv /tmp/config_default gcloud/"
   ]
  }
 
@@ -324,12 +348,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -346,16 +370,22 @@ connection {
   timeout     = "2m"
  }
 
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
+ }
+
 provisioner "file" {
   source          = "${var.credentials_file_path}"
-  destination     = "/tmp/gcp-credentials.json"
+  destination     = "/tmp/config_default"
  }
 
 provisioner "remote-exec" {
   inline = [
     "cd ~",
     "sudo mkdir gcloud/",
-    "sudo mv /tmp/gcp-credentials.json gcloud/"
+    "sudo mv /tmp/config_default gcloud/"
   ]
  }
 
@@ -387,12 +417,12 @@ boot_disk {
  }
 
 network_interface {
-  network = "default"
+  network = "${var.network}"
   access_config {}
  }
 
 service_account {
-  email = "jenkins@first-project-204916.iam.gserviceaccount.com",
+  email = "${var.service_account}",
   scopes = ["https://www.googleapis.com/auth/cloud-platform"]
  }
 
@@ -407,6 +437,12 @@ connection {
   private_key = "${file("${var.private_key_path}")}"
   agent       = false
   timeout     = "2m"
+ }
+
+provisioner "remote-exec" {
+  inline = [
+    "gcloud config set account ${var.service_account}"
+  ]
  }
 
 provisioner "remote-exec" {
