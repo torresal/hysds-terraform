@@ -43,6 +43,7 @@ resource "aws_instance" "leaflet" {
     command = "echo ${aws_instance.leaflet.private_ip} > leaflet_ip_address.txt"
   }
 
+  # Provision Verdi
   provisioner "remote-exec" {
     inline = [
       "cd /tmp",
@@ -57,6 +58,30 @@ resource "aws_instance" "leaflet" {
       "sudo bash -c \"echo ${lookup(var.leaflet, "data_dev_mount", var.leaflet["data_dev"])} ${var.leaflet["data"]} auto defaults,nofail,comment=terraform 0 2 >> /etc/fstab\""
     ]
   }
+
+  # Provision displacement-ts-server
+  provisioner "remote-exec" {
+    inline = [
+      "cd /home/ops/verdi/ops",
+      "git clone https://github.com/hysds/displacement-ts-server.git -b dev",
+      "pip install -r requirements.txt",
+      "cd displacement-ts-server/configs/certs",
+      "openssl genrsa -des3 -passout pass:hysds -out server.key 1024",
+      "OPENSSL_CONF=server.cnf openssl req -passin pass:hysds -new -key server.key -out server.csr",
+      "cp server.key server.key.org",
+      "openssl rsa -passin pass:hysds -in server.key.org -out server.key",
+      "chmod 600 server.key*",
+      "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
+      "cd ../..",
+      "docker build --rm --force-rm -t hysds/displacement-ts-server:latest .",
+      "sudo /usr/sbin/apachectl stop",
+      "docker-compose up -d"
+    ]
+  }
+
+
+
+
 }
 
 output "leaflet_pvt_ip" {

@@ -41,7 +41,11 @@ variable "vpc_security_group_ids" {
 }
 
 
-# leaflet_web_server vars
+##### leaflet_web_server vars ####
+variable "pass_phrase" {
+  default = "hysds"
+}
+
 variable "leaflet" {
   type = "map"
   default = {
