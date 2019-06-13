@@ -34,6 +34,7 @@ resource "aws_instance" "leaflet" {
 
   connection {
     type     = "ssh"
+    host = self.private_ip
     user     = "ops"
     private_key = "${file(var.private_key_file)}"
   }
@@ -47,7 +48,7 @@ resource "aws_instance" "leaflet" {
       "cd /tmp",
       "git clone https://github.com/pymonger/docker-ephemeral-lvm.git",
       "cd docker-ephemeral-lvm/docker-ephemeral-lvm.d",
-      "sudo bash docker-ephemeral-lvm.sh.no_encrypt_data",
+      "sudo bash docker-ephemeral-lvm.sh",
       "sudo systemctl stop redis",
       "sudo mkdir -p ${var.leaflet["data"]}/var/lib",
       "sudo mv /var/lib/redis ${var.leaflet["data"]}/var/lib/",
