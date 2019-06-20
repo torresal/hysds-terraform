@@ -7,8 +7,7 @@ provider "aws" {
 
 ######################
 # leaflet_server
-######################
-
+####################
 resource "aws_instance" "leaflet" {
   ami                    = "${var.leaflet["ami"]}"
   instance_type          = "${var.leaflet["instance_type"]}"
