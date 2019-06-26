@@ -5,9 +5,9 @@ provider "aws" {
 }
 
 
-######################
+##################
 # leaflet_server
-####################
+##################
 resource "aws_instance" "leaflet" {
   ami                    = "${var.leaflet["ami"]}"
   instance_type          = "${var.leaflet["instance_type"]}"
@@ -68,9 +68,11 @@ resource "aws_instance" "leaflet" {
       "chmod 600 server.key*",
       "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
       "cd ../..",
+      "cp -rf /home/ops/verdi/ops/displacement-ts-server/verdi_configs/ /home/ops/verdi/etc/"
       "docker build --rm --force-rm -t hysds/displacement-ts-server:latest .",
       "sudo /usr/sbin/apachectl stop",
-      "docker-compose up -d"
+      "supervisorctl shutdown",
+      "supervisord"
     ]
   }
 }
