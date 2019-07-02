@@ -43,6 +43,29 @@ resource "aws_instance" "leaflet" {
     command = "echo ${aws_instance.leaflet.private_ip} > leaflet_ip_address.txt"
   }
 
+  provisioner "local-exec" {
+    command = [
+      # Add config file to .sds
+      "cd /home/ops/.sds",
+      "(echo 'VERDI_PVT_IP: ${aws_instance.leaflet.private_ip}'; echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > tss_config",
+      # provision displacement-ts-server
+      "cd /home/ops/mozart/ops",
+      "git clone https://github.com/hysds/displacement-ts-server.git -b dev",
+      "cd /home/ops/mozart/ops/displacement-ts-server",
+      "sudo pip install -r requirements.txt",
+      "cd configs/certs",
+      "openssl genrsa -des3 -passout pass:${var.pass_phrase} -out server.key 1024",
+      "OPENSSL_CONF=server.cnf openssl req -passin pass:${var.pass_phrase} -new -key server.key -out server.csr",
+      "cp server.key server.key.org",
+      "openssl rsa -passin pass:${var.pass_phrase} -in server.key.org -out server.key",
+      "chmod 600 server.key*",
+      "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
+      "cd /home/ops/mozart/ops/displacement-ts-server/update_tss",
+      "bash update_tss.sh"
+    ]
+  }
+
+
   provisioner "remote-exec" {
     inline = [
       # provision verdi
@@ -85,54 +108,3 @@ output "leaflet_pvt_ip" {
 output "leaflet_pub_ip" {
   value = "${aws_instance.leaflet.public_ip}"
 }
-
-
-######################
-# Mozart Provisioning
-######################
-resource "null_resource" "mozart" {
-
-  connection {
-    type     = "ssh"
-    host = var.mozart_pvt_ip
-    user     = "ops"
-    private_key = "${file(var.private_key_file)}"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      # Add config file to .sds
-      "cd /home/ops/.sds",
-      "(echo 'VERDI_PVT_IP: ${aws_instance.leaflet.private_ip}'; echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > tss_config",
-      # provision displacement-ts-server
-      "cd /home/ops/mozart/ops",
-      "git clone https://github.com/hysds/displacement-ts-server.git -b dev",
-      "cd /home/ops/mozart/ops/displacement-ts-server",
-      "sudo pip install -r requirements.txt",
-      "cd configs/certs",
-      "openssl genrsa -des3 -passout pass:${var.pass_phrase} -out server.key 1024",
-      "OPENSSL_CONF=server.cnf openssl req -passin pass:${var.pass_phrase} -new -key server.key -out server.csr",
-      "cp server.key server.key.org",
-      "openssl rsa -passin pass:${var.pass_phrase} -in server.key.org -out server.key",
-      "chmod 600 server.key*",
-      "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
-      "cd /home/ops/mozart/ops/displacement-ts-server/update_tss",
-      "bash update_tss.sh"
-    ]
-  }
-}
-
-
-#resource "null_resource" "leaflet_server" {
-
-#  connection {
-#    type     = "ssh"
-#    host = aws_instance.leaflet.private_ip
-#    user     = "ops"
-#    private_key = "${file(var.private_key_file)}"
-#  }
-#
-#  provisioner "remote-exec" {
-#    inline = [
-#   ]
-#  }
