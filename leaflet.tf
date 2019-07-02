@@ -79,25 +79,22 @@ resource "aws_instance" "leaflet" {
   }
 
   provisioner "local-exec" {
-    command = [
-      # Add config file to .sds
-      "cd /home/ops/.sds",
-      "(echo 'VERDI_PVT_IP: ${aws_instance.leaflet.private_ip}'; echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > tss_config",
-      # provision displacement-ts-server
-      "cd /home/ops/mozart/ops",
-      "git clone https://github.com/hysds/displacement-ts-server.git -b dev",
-#      "cd /home/ops/mozart/ops/displacement-ts-server",
-#      "sudo pip install -r requirements.txt",
-      "cd configs/certs",
-      "openssl genrsa -des3 -passout pass:${var.pass_phrase} -out server.key 1024",
-      "OPENSSL_CONF=server.cnf openssl req -passin pass:${var.pass_phrase} -new -key server.key -out server.csr",
-      "cp server.key server.key.org",
-      "openssl rsa -passin pass:${var.pass_phrase} -in server.key.org -out server.key",
-      "chmod 600 server.key*",
-      "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
-      "cd /home/ops/mozart/ops/displacement-ts-server/update_tss",
-      "bash update_tss.sh"
-    ]
+    # Add config file to .sds and provision displacement-ts-server
+    command = <<EOT
+      cd /home/ops/.sds ;
+      (echo 'VERDI_PVT_IP: ${aws_instance.leaflet.private_ip}'; echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > tss_config ;
+      cd /home/ops/mozart/ops ;
+      git clone https://github.com/hysds/displacement-ts-server.git -b dev ;
+      cd configs/certs ;
+      openssl genrsa -des3 -passout pass:${var.pass_phrase} -out server.key 1024 ;
+      OPENSSL_CONF=server.cnf openssl req -passin pass:${var.pass_phrase} -new -key server.key -out server.csr ;
+      cp server.key server.key.org ;
+      openssl rsa -passin pass:${var.pass_phrase} -in server.key.org -out server.key ;
+      chmod 600 server.key* ;
+      openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt ;
+      cd /home/ops/mozart/ops/displacement-ts-server/update_tss ;
+      bash update_tss.sh
+    EOT
   }
 }
 
