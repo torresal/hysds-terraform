@@ -53,24 +53,6 @@ resource "aws_instance" "leaflet" {
       "sudo systemctl start redis",
       "sudo bash -c \"echo ${lookup(var.leaflet, "data_dev_mount", var.leaflet["data_dev"])} ${var.leaflet["data"]} auto defaults,nofail,comment=terraform 0 2 >> /etc/fstab\"",
       "sudo pip install docker-compose"
-      # provision displacement-ts-server
-#      "cd /home/ops/verdi/ops",
-#      "git clone https://github.com/hysds/displacement-ts-server.git -b dev",
-#      "cd /home/ops/verdi/ops/displacement-ts-server",
-#      "sudo pip install -r requirements.txt",
-#      "cd configs/certs",
-#      "openssl genrsa -des3 -passout pass:${var.pass_phrase} -out server.key 1024",
-#      "OPENSSL_CONF=server.cnf openssl req -passin pass:${var.pass_phrase} -new -key server.key -out server.csr",
-#      "cp server.key server.key.org",
-#      "openssl rsa -passin pass:${var.pass_phrase} -in server.key.org -out server.key",
-#      "chmod 600 server.key*",
-#      "openssl x509 -req -days 99999 -in server.csr -signkey server.key -out server.crt",
-#      "cd ../..",
-#      "cp -rf /home/ops/verdi/ops/displacement-ts-server/verdi_configs/* /home/ops/verdi/etc/",
-#      "docker build --rm --force-rm -t hysds/displacement-ts-server:latest .",
-#      "sudo /usr/sbin/apachectl stop",
-#      "supervisord -c /home/ops/verdi/etc/supervisord.conf"
-#      "docker-compose up -d"
     ]
   }
 
@@ -81,6 +63,15 @@ resource "aws_instance" "leaflet" {
       (echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > /home/ops/.sds/tss_config ;
       bash setup_tss.sh
     EOT
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo /usr/sbin/apachectl stop",
+      "cd /home/ops/verdi/ops/displacement-ts-server",
+      "docker-compose up -d",
+      "supervisord -c /home/ops/verdi/etc/supervisord.conf"
+    ]
   }
 }
 
