@@ -4,11 +4,14 @@ HySDS cluster provisioning using Terraform
 ## Prerequisites
 1. Install Terraform from https://www.terraform.io/. You can run `terraform` from any machine or your laptop.
 1. If you are using AWS, make sure you have your credentials setup up. To set them up, install the AWS CLI from https://aws.amazon.com/cli/ and run `aws configure`.
+1. Complete setup of [HySDS core](https://hysds-core.atlassian.net/wiki/spaces/HYS/pages/18284549/Installation) with ARIA adaptaion
 
 ## Usage
-1. Clone the repo
+1. Log into Mozart and clone repo
    ```
-   git clone https://github.com/hysds/hysds-terraform.git
+   mkdir ~/tss_server
+   cd ~/tss_server
+   git clone https://github.com/hysds/hysds-terraform.git -b leaflet_server
    cd hysds-terraform
    ```
 1. Copy the variables.tf.tmpl to variables.tf:
@@ -19,7 +22,7 @@ HySDS cluster provisioning using Terraform
    ```
    terraform init
    ```
-1. Updated the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings. Edit the variables.tf file with custom variables for this installation venue. Many of these values can be acquired from the aws console.
+1. Update the values starting with two underscores, e.g. \_\_region\_\_, for your provider account and settings. Edit the variables.tf file with custom variables for this installation venue. Many of these values can be acquired from the aws console.
    ```
    vi variables.tf
    ```
