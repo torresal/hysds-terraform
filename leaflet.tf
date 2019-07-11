@@ -51,8 +51,7 @@ resource "aws_instance" "leaflet" {
       "sudo mv /var/lib/redis ${var.leaflet["data"]}/var/lib/",
       "sudo ln -sf ${var.leaflet["data"]}/var/lib/redis /var/lib/redis",
       "sudo systemctl start redis",
-      "sudo bash -c \"echo ${lookup(var.leaflet, "data_dev_mount", var.leaflet["data_dev"])} ${var.leaflet["data"]} auto defaults,nofail,comment=terraform 0 2 >> /etc/fstab\"",
-      "sudo pip install docker-compose"
+      "sudo bash -c \"echo ${lookup(var.leaflet, "data_dev_mount", var.leaflet["data_dev"])} ${var.leaflet["data"]} auto defaults,nofail,comment=terraform 0 2 >> /etc/fstab\""
     ]
   }
 
@@ -61,6 +60,7 @@ resource "aws_instance" "leaflet" {
     command = <<EOT
       export PASS_PHRASE=${var.pass_phrase} ;
       (echo 'TS_PVT_IP: ${aws_instance.leaflet.private_ip}') > /home/ops/.sds/tss_config ;
+      sudo pip install -r requirements.txt ;
       bash setup_tss.sh
     EOT
   }
@@ -69,7 +69,7 @@ resource "aws_instance" "leaflet" {
     inline = [
       "sudo /usr/sbin/apachectl stop",
       "cd /home/ops/verdi/ops/displacement-ts-server",
-      "docker-compose up -d",
+      "sudo pip install -r requirements.txt",
       "supervisord -c /home/ops/verdi/etc/supervisord.conf"
     ]
   }
